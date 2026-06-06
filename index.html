@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hands2Hold — Helping Hands</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1a3a5c;
+    --blue: #2563a8;
+    --sky: #4a90d9;
+    --light-blue: #e8f2fb;
+    --white: #ffffff;
+    --off-white: #f7fafd;
+    --text: #1a2d42;
+    --muted: #6b8aab;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(37,99,168,0.12);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px;
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none;
+  }
+
+  .nav-logo-icon {
+    width: 44px; height: 44px;
+    background: var(--navy);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+
+  .nav-logo-icon svg { width: 32px; height: 32px; }
+
+  .nav-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--blue); }
+
+  .nav-cta {
+    background: var(--navy);
+    color: var(--white) !important;
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    font-size: 0.9rem !important;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--blue) !important; color: var(--white) !important; }
+
+  /* HERO */
+  #home {
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--navy) 0%, #1e5094 50%, var(--sky) 100%);
+    display: flex; align-items: center;
+    padding: 70px 5% 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-circles {
+    position: absolute; inset: 0; pointer-events: none;
+  }
+
+  .hero-bg-circles span {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .hero-bg-circles span:nth-child(1) { width: 600px; height: 600px; top: -200px; right: -100px; }
+  .hero-bg-circles span:nth-child(2) { width: 400px; height: 400px; bottom: -150px; left: -100px; }
+  .hero-bg-circles span:nth-child(3) { width: 200px; height: 200px; top: 30%; left: 40%; }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: center;
+    width: 100%;
+  }
+
+  .hero-text { color: var(--white); }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 28px;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: #7ecfff; display: block; }
+
+  .hero-h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 20px;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .hero-h1 em { font-style: italic; color: #7ecfff; }
+
+  .hero-tagline {
+    font-size: 1.15rem;
+    font-weight: 300;
+    opacity: 0.85;
+    line-height: 1.7;
+    margin-bottom: 36px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-motto {
+    background: rgba(255,255,255,0.1);
+    border-left: 3px solid #7ecfff;
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.95rem;
+    font-style: italic;
+    opacity: 0.9;
+    margin-bottom: 40px;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-pills {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .pill {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  /* Logo display */
+  .hero-logo-wrap {
+    display: flex; justify-content: center; align-items: center;
+    animation: fadeUp 0.8s 0.5s ease both;
+  }
+
+  .logo-card {
+    background: rgba(255,255,255,0.95);
+    border-radius: 28px;
+    padding: 48px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.3);
+    text-align: center;
+    max-width: 360px;
+    width: 100%;
+  }
+
+  .logo-card img {
+    width: 200px; height: 200px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(37,99,168,0.15));
+  }
+
+  .logo-org-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-top: 20px;
+  }
+
+  .logo-sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .logo-est {
+    display: inline-block;
+    margin-top: 14px;
+    background: var(--light-blue);
+    color: var(--blue);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 5px 14px;
+    border-radius: 100px;
+    text-transform: uppercase;
+  }
+
+  /* SECTION STYLES */
+  section { padding: 96px 5%; }
+
+  .section-container { max-width: 1100px; margin: 0 auto; }
+
+  .section-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--sky);
+    margin-bottom: 16px;
+  }
+
+  .section-eyebrow::before {
+    content: '';
+    width: 24px; height: 2px;
+    background: var(--sky);
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .section-subtitle {
+    font-size: 1.05rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 600px;
+  }
+
+  /* TEAM SECTION */
+  #team { background: var(--off-white); }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 56px;
+  }
+
+  .team-card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 20px rgba(37,99,168,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(37,99,168,0.08);
+  }
+
+  .team-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(37,99,168,0.15);
+  }
+
+  .team-card-header {
+    background: linear-gradient(135deg, var(--navy), var(--blue));
+    height: 120px;
+    position: relative;
+    display: flex; align-items: flex-end;
+    padding: 0 24px 0;
+  }
+
+  .team-avatar {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    border: 4px solid var(--white);
+    background: var(--light-blue);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--navy);
+    position: absolute;
+    bottom: -40px;
+    left: 24px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  }
+
+  .team-card-body {
+    padding: 52px 24px 28px;
+  }
+
+  .team-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .team-role {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sky);
+    margin-bottom: 14px;
+  }
+
+  .team-badge {
+    display: inline-block;
+    background: var(--light-blue);
+    color: var(--blue);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+
+  /* VALUES */
+  #values { background: var(--white); }
+
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 56px;
+  }
+
+  .value-card {
+    padding: 36px 28px;
+    border-radius: 20px;
+    border: 1.5px solid rgba(37,99,168,0.12);
+    background: var(--white);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .value-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--navy), var(--sky));
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+
+  .value-card:hover::before { transform: scaleX(1); }
+  .value-card:hover { box-shadow: 0 8px 32px rgba(37,99,168,0.1); }
+
+  .value-icon {
+    font-size: 2.4rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .value-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+
+  .value-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* PROJECTS */
+  #projects { background: var(--off-white); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-top: 56px;
+  }
+
+  .project-card {
+    background: var(--white);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 20px rgba(37,99,168,0.08);
+    border: 1px solid rgba(37,99,168,0.08);
+  }
+
+  .project-card-top {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+    padding: 32px;
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card-top::after {
+    content: '';
+    position: absolute;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.1);
+    right: -60px; top: -60px;
+  }
+
+  .project-status {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 16px;
+  }
+
+  .status-completed { background: rgba(34,197,94,0.2); color: #4ade80; }
+  .status-upcoming { background: rgba(251,191,36,0.2); color: #fbbf24; }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; display: block; }
+
+  .project-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .project-meta {
+    font-size: 0.82rem;
+    opacity: 0.75;
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+
+  .project-meta span { display: flex; align-items: center; gap: 5px; }
+
+  .project-body { padding: 32px; }
+
+  .project-desc {
+    font-size: 0.92rem;
+    color: var(--text);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .project-tagline {
+    background: var(--light-blue);
+    border-left: 3px solid var(--blue);
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.88rem;
+    font-style: italic;
+    color: var(--navy);
+    font-weight: 500;
+    line-height: 1.6;
+  }
+
+  .upcoming-card .project-card-top {
+    background: linear-gradient(135deg, #0f2b4a 0%, var(--navy) 100%);
+    min-height: 180px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+
+  .upcoming-icon {
+    font-size: 3.5rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .upcoming-coming {
+    background: var(--light-blue);
+    border-radius: 16px;
+    padding: 28px;
+    text-align: center;
+    margin: 8px 0;
+  }
+
+  .upcoming-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--sky);
+    margin-bottom: 10px;
+  }
+
+  .upcoming-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+  }
+
+  .upcoming-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* CONTACT */
+  #contact { background: var(--white); }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-top: 56px;
+    align-items: start;
+  }
+
+  .contact-info-box {
+    background: linear-gradient(135deg, var(--navy), var(--blue));
+    border-radius: 24px;
+    padding: 44px;
+    color: var(--white);
+  }
+
+  .contact-info-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .contact-info-sub {
+    font-size: 0.92rem;
+    opacity: 0.8;
+    line-height: 1.7;
+    margin-bottom: 36px;
+  }
+
+  .contact-detail {
+    display: flex; align-items: flex-start; gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  .contact-detail-icon {
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .contact-detail-text { font-size: 0.88rem; opacity: 0.9; line-height: 1.6; }
+  .contact-detail-label { font-weight: 600; margin-bottom: 2px; font-size: 0.8rem; letter-spacing: 0.05em; text-transform: uppercase; opacity: 0.6; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 20px; }
+
+  .form-group { display: flex; flex-direction: column; gap: 7px; }
+
+  .form-label {
+    font-size: 0.83rem;
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: 0.04em;
+  }
+
+  .form-input, .form-textarea {
+    padding: 13px 16px;
+    border-radius: 10px;
+    border: 1.5px solid rgba(37,99,168,0.15);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    color: var(--text);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .form-input:focus, .form-textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(37,99,168,0.1);
+  }
+
+  .form-textarea { resize: vertical; min-height: 120px; }
+
+  .btn-submit {
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    padding: 15px 32px;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-submit:hover { background: var(--blue); transform: translateY(-2px); }
+
+  /* HELPING HANDS TAGLINE */
+  .helping-hands-bar {
+    background: linear-gradient(90deg, var(--navy), var(--blue), var(--sky));
+    color: var(--white);
+    text-align: center;
+    padding: 20px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-style: italic;
+    letter-spacing: 0.04em;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy);
+    color: var(--white);
+    padding: 48px 5% 32px;
+  }
+
+  .footer-content {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .footer-brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .footer-brand-desc {
+    font-size: 0.88rem;
+    opacity: 0.65;
+    line-height: 1.7;
+    max-width: 300px;
+  }
+
+  .footer-col-title {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 600;
+    opacity: 0.5;
+    margin-bottom: 16px;
+  }
+
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a {
+    text-decoration: none;
+    font-size: 0.88rem;
+    opacity: 0.75;
+    color: var(--white);
+    transition: opacity 0.2s;
+  }
+  .footer-links a:hover { opacity: 1; }
+
+  .footer-bottom {
+    max-width: 1100px; margin: 0 auto;
+    padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.82rem;
+    opacity: 0.5;
+  }
+
+  .values-chips {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px;
+  }
+
+  .values-chip {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 100px;
+    padding: 4px 12px;
+    font-size: 0.78rem;
+    font-weight: 500;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--navy);
+    color: var(--white);
+    padding: 32px 5%;
+  }
+
+  .stats-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .stat-item { text-align: center; }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #7ecfff;
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 0.82rem;
+    opacity: 0.7;
+    letter-spacing: 0.04em;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .hero-content { grid-template-columns: 1fr; gap: 40px; }
+    .hero-logo-wrap { order: -1; }
+    .logo-card { max-width: 240px; padding: 32px; }
+    .logo-card img { width: 140px; height: 140px; }
+    .team-grid { grid-template-columns: 1fr; }
+    .values-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .contact-layout { grid-template-columns: 1fr; }
+    .footer-content { grid-template-columns: 1fr; gap: 32px; }
+    .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">
+    <div class="nav-logo-icon">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 14 C8 10 10 8 13 8 C13 6 14.5 5 16 5 C17.5 5 19 6 19 8 C21 8 23 10 23 13 L23 20 C23 24 20 27 16 27 C12 27 8 24 8 20 Z" stroke="white" stroke-width="1.5" fill="none"/>
+        <line x1="13" y1="8" x2="13" y2="18" stroke="white" stroke-width="1.5"/>
+        <line x1="16" y1="5" x2="16" y2="18" stroke="white" stroke-width="1.5"/>
+        <line x1="19" y1="8" x2="19" y2="18" stroke="white" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <span class="nav-brand">Hands2Hold</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#contact" class="nav-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- HERO / HOME -->
+<section id="home">
+  <div class="hero-bg-circles">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-eyebrow"><span></span>Est. 2025 · Sirsa, Haryana</div>
+      <h1 class="hero-h1">
+        <em>Helping Hands,</em><br>
+        Changing Lives
+      </h1>
+      <p class="hero-tagline">
+        Hands2Hold is a community-driven initiative dedicated to uplifting the underserved through compassion, unity, and sustained action.
+      </p>
+      <div class="hero-motto">
+        "Fifty stationery kits may seem like a small number, but for fifty children, they represented fifty new opportunities to learn, create, and dream."
+      </div>
+      <div class="hero-pills">
+        <span class="pill">🕊️ Peace</span>
+        <span class="pill">🤝 Unity</span>
+        <span class="pill">🌸 Harmony</span>
+        <span class="pill">❤️ Care</span>
+      </div>
+    </div>
+    <div class="hero-logo-wrap">
+      <div class="logo-card">
+        <img src="/mnt/user-data/uploads/Logo_hands2hols.jpeg" alt="Hands2Hold Logo" />
+        <div class="logo-org-name">Hands2Hold</div>
+        <div class="logo-sub">Community Initiative</div>
+        <div class="logo-est">Est. 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-num">50+</span>
+      <div class="stat-label">Children Reached</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">1</span>
+      <div class="stat-label">Completed Drive</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">6+</span>
+      <div class="stat-label">Volunteers</div>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">2025</span>
+      <div class="stat-label">Founded</div>
+    </div>
+  </div>
+</div>
+
+<!-- HELPING HANDS TAGLINE -->
+<div class="helping-hands-bar">
+  🤝 &nbsp; Helping Hands — Building Bridges of Hope, One Community at a Time &nbsp; 🤝
+</div>
+
+<!-- TEAM -->
+<section id="team">
+  <div class="section-container">
+    <div class="section-eyebrow">Our People</div>
+    <h2 class="section-title">The Hands Behind<br>the Mission</h2>
+    <p class="section-subtitle">A passionate team rooted in Sirsa, Haryana, working together to create meaningful change.</p>
+
+    <div class="team-grid">
+      <!-- Co-founder 1 -->
+      <div class="team-card">
+        <div class="team-card-header">
+          <div class="team-avatar">H</div>
+        </div>
+        <div class="team-card-body">
+          <div class="team-name">Hiral Garg</div>
+          <div class="team-role">Co-Founder</div>
+          <p style="font-size:0.88rem;color:var(--muted);line-height:1.6;margin-bottom:14px;">
+            Passionate about youth empowerment and grassroots impact. Led the Stationery Donation Drive with six dedicated volunteers, bringing smiles to 50 children at Bhai Kanhaiya Ashram.
+          </p>
+          <span class="team-badge">Co-Founder · 2025</span>
+        </div>
+      </div>
+
+      <!-- Co-founder 2 -->
+      <div class="team-card">
+        <div class="team-card-header">
+          <div class="team-avatar">A</div>
+        </div>
+        <div class="team-card-body">
+          <div class="team-name">Co-Founder</div>
+          <div class="team-role">Co-Founder</div>
+          <p style="font-size:0.88rem;color:var(--muted);line-height:1.6;margin-bottom:14px;">
+            Visionary leader committed to building sustainable community programs around peace, unity, and harmony. Drives the strategic direction of Hands2Hold's growing mission.
+          </p>
+          <span class="team-badge">Co-Founder · 2025</span>
+        </div>
+      </div>
+
+      <!-- Social Media Manager -->
+      <div class="team-card">
+        <div class="team-card-header">
+          <div class="team-avatar">S</div>
+        </div>
+        <div class="team-card-body">
+          <div class="team-name">Social Media Manager</div>
+          <div class="team-role">Social Media Manager</div>
+          <p style="font-size:0.88rem;color:var(--muted);line-height:1.6;margin-bottom:14px;">
+            Amplifying the voice of Hands2Hold across digital platforms. Crafting stories that inspire, engage, and grow our community of changemakers across Haryana and beyond.
+          </p>
+          <span class="team-badge">Team Member · 2025</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section id="values">
+  <div class="section-container">
+    <div class="section-eyebrow">What We Stand For</div>
+    <h2 class="section-title">Our Core Values</h2>
+    <p class="section-subtitle">Every action we take is guided by these principles.</p>
+
+    <div class="values-grid">
+      <div class="value-card">
+        <span class="value-icon">🕊️</span>
+        <div class="value-name">Peace</div>
+        <p class="value-desc">We believe that lasting change begins with peaceful coexistence. Every initiative we undertake promotes dialogue, understanding, and reconciliation within communities.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">🤝</span>
+        <div class="value-name">Unity</div>
+        <p class="value-desc">Together we are stronger. Hands2Hold brings together volunteers, donors, and community members — united by a single purpose: to lift those who need it most.</p>
+      </div>
+      <div class="value-card">
+        <span class="value-icon">🌸</span>
+        <div class="value-name">Harmony</div>
+        <p class="value-desc">We work in harmony with local communities, respecting their culture, needs, and aspirations. Our support is rooted in listening before acting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-container">
+    <div class="section-eyebrow">Our Work</div>
+    <h2 class="section-title">Projects & Initiatives</h2>
+    <p class="section-subtitle">From completed drives to upcoming campaigns — every project is a step forward.</p>
+
+    <div class="projects-grid">
+      <!-- Completed -->
+      <div class="project-card">
+        <div class="project-card-top">
+          <div class="project-status status-completed">
+            <span class="status-dot"></span>
+            Completed
+          </div>
+          <div class="project-name">Stationery Donation Drive</div>
+          <div class="project-meta">
+            <span>📍 Bhai Kanhaiya Ashram, Sirsa</span>
+            <span>📅 30th May 2025</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <p class="project-desc">
+            Thousands of children from economically disadvantaged backgrounds lack access to basic school supplies — a barrier to learning that is unacceptable in the world's fourth largest economy. Hands2Hold came together and donated 50 packets of stationery to Bhai Kanhaiya Ashram, Sirsa. Co-founder Hiral Garg, along with six dedicated volunteers, distributed these kits to children aged 5–16 from economically disadvantaged and specially-abled backgrounds.
+          </p>
+          <div class="project-tagline">
+            "Fifty stationery kits may seem like a small number, but for fifty children, they represented fifty new opportunities to learn, create, and dream."
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming -->
+      <div class="project-card upcoming-card">
+        <div class="project-card-top">
+          <div class="project-status status-upcoming">
+            <span class="status-dot"></span>
+            Upcoming
+          </div>
+          <span class="upcoming-icon">🌸</span>
+          <div class="project-name">Period Care Drive</div>
+          <div class="project-meta">
+            <span>📍 Sirsa, Haryana</span>
+            <span>🕐 Coming Soon</span>
+          </div>
+        </div>
+        <div class="project-body">
+          <div class="upcoming-coming">
+            <div class="upcoming-label">Next Initiative</div>
+            <div class="upcoming-title">Breaking the Silence</div>
+            <p class="upcoming-desc">
+              Menstrual hygiene remains a taboo and a barrier for millions of women and girls. Our upcoming Period Care Drive aims to distribute menstrual hygiene products and promote awareness in underserved communities across Haryana.
+            </p>
+          </div>
+          <div style="margin-top:20px;text-align:center;">
+            <a href="#contact" style="display:inline-block;background:var(--navy);color:var(--white);text-decoration:none;padding:12px 28px;border-radius:10px;font-size:0.9rem;font-weight:600;transition:background 0.2s;" onmouseover="this.style.background='var(--blue)'" onmouseout="this.style.background='var(--navy)'">
+              Volunteer With Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-container">
+    <div class="section-eyebrow">Get In Touch</div>
+    <h2 class="section-title">Join Our Mission</h2>
+    <p class="section-subtitle">Whether you want to volunteer, donate, or collaborate — we'd love to hear from you.</p>
+
+    <div class="contact-layout">
+      <div class="contact-info-box">
+        <div class="contact-info-title">Reach Out to Us</div>
+        <p class="contact-info-sub">Every helping hand counts. Connect with us and be part of the change.</p>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <div class="contact-detail-text">
+            <div class="contact-detail-label">Location</div>
+            Sirsa, Haryana, India
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📱</div>
+          <div class="contact-detail-text">
+            <div class="contact-detail-label">Social Media</div>
+            @hands2hold · Instagram & Facebook
+          </div>
+        </div>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">🌐</div>
+          <div class="contact-detail-text">
+            <div class="contact-detail-label">Founded</div>
+            2025 · Sirsa, Haryana
+          </div>
+        </div>
+
+        <div class="values-chips">
+          <span class="values-chip">🕊️ Peace</span>
+          <span class="values-chip">🤝 Unity</span>
+          <span class="values-chip">🌸 Harmony</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="contact-form">
+          <div class="form-group">
+            <label class="form-label">Your Name</label>
+            <input type="text" class="form-input" placeholder="Enter your name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">How would you like to help?</label>
+            <select class="form-input" style="cursor:pointer;">
+              <option>Volunteer</option>
+              <option>Donate Supplies</option>
+              <option>Sponsor a Drive</option>
+              <option>Collaborate / Partner</option>
+              <option>General Enquiry</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Your Message</label>
+            <textarea class="form-textarea" placeholder="Share your thoughts, ideas, or how you'd like to get involved..."></textarea>
+          </div>
+          <button class="btn-submit" onclick="alert('Thank you! We will get back to you soon. 🤝')">Send Message →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div>
+      <div class="footer-brand-name">Hands2Hold</div>
+      <p class="footer-brand-desc">A community-driven initiative from Sirsa, Haryana, spreading peace, unity, and harmony — one helping hand at a time.</p>
+      <div class="values-chips" style="margin-top:20px;">
+        <span class="values-chip">🕊️ Peace</span>
+        <span class="values-chip">🤝 Unity</span>
+        <span class="values-chip">🌸 Harmony</span>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigate</div>
+      <ul class="footer-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#team">Our Team</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Projects</div>
+      <ul class="footer-links">
+        <li><a href="#projects">Stationery Drive ✓</a></li>
+        <li><a href="#projects">Period Care Drive →</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Hands2Hold · Sirsa, Haryana</span>
+    <span>Made with ❤️ for community</span>
+  </div>
+</footer>
+
+</body>
+</html>
