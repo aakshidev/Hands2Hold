@@ -1048,7 +1048,10 @@
       </div>
 
       <div>
-        <form class="contact-form" id="joinForm" action="https://formspree.io/f/handstoholdngo@gmail.com" method="POST">
+        <form class="contact-form" action="https://formsubmit.co/handstoholdngo@gmail.com" method="POST">
+          <input type="hidden" name="_subject" value="New message from Hands2Hold website 🤝">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
           <div class="form-group">
             <label class="form-label">Your Name</label>
             <input type="text" name="name" class="form-input" placeholder="Enter your name" required>
@@ -1071,42 +1074,8 @@
             <label class="form-label">Your Message</label>
             <textarea name="message" class="form-textarea" placeholder="Share your thoughts, ideas, or how you'd like to get involved..."></textarea>
           </div>
-          <input type="hidden" name="_subject" value="New message from Hands2Hold website">
-          <input type="hidden" name="_next" value="">
-          <button type="submit" class="btn-submit" id="submitBtn">Send Message →</button>
-          <p id="formStatus" style="display:none;text-align:center;font-weight:600;color:#2a7d4f;margin-top:8px;"></p>
+          <button type="submit" class="btn-submit">Send Message →</button>
         </form>
-        <script>
-          const form = document.getElementById('joinForm');
-          const btn = document.getElementById('submitBtn');
-          const status = document.getElementById('formStatus');
-          form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            btn.textContent = 'Sending...';
-            btn.disabled = true;
-            const data = new FormData(form);
-            try {
-              const res = await fetch('https://formspree.io/f/handstoholdngo@gmail.com', {
-                method: 'POST', body: data, headers: { 'Accept': 'application/json' }
-              });
-              if (res.ok) {
-                status.textContent = 'Thank you! We\'ll be in touch soon. 🤝';
-                status.style.display = 'block';
-                form.reset();
-              } else {
-                status.textContent = 'Oops! Something went wrong. Please email us directly at handstoholdngo@gmail.com';
-                status.style.color = '#c0392b';
-                status.style.display = 'block';
-              }
-            } catch {
-              status.textContent = 'Oops! Something went wrong. Please email us directly at handstoholdngo@gmail.com';
-              status.style.color = '#c0392b';
-              status.style.display = 'block';
-            }
-            btn.textContent = 'Send Message →';
-            btn.disabled = false;
-          });
-        </script>
       </div>
     </div>
   </div>
